@@ -1,0 +1,20 @@
+optoforce_node:
+    ISE_23_fx_gain : 267.87
+    ISE_23_fy_gain : 267.87
+    ISE_23_fz_gain : 267.87
+
+    ISE_30_fx_gain : 269.15
+    ISE_30_fy_gain : 269.15
+    ISE_30_fz_gain : 269.15
+
+    ISE_31_fx_gain : 268.93
+    ISE_31_fy_gain : 268.93
+    ISE_31_fz_gain : 268.93
+
+    ISE_29_fx_gain : 297.8
+    ISE_29_fy_gain : 297.8
+    ISE_29_fz_gain : 297.8
+
+    speed: 1000
+    filter: 0
+    n_sensors: 2

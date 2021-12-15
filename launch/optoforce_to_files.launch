@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+    <arg name="namespace" default="/"/>
+    <arg name="sens_params_file" default="hex-70-ce-2000n-ice044.yaml" />
+
+    <group ns="$(arg namespace)">
+
+        <rosparam file="$(find optoforce_vaga)/cfg/$(arg sens_params_file)" command="load"/>
+
+        <node name="optoforce_node" pkg="optoforce_vaga" type="optoforce_vaga_node" output="screen"/>
+
+        <node name="save_optoforce" pkg="optoforce_vaga" type="optoforce_to_files.py" output="screen"/>
+
+        <node name="save_frankaforce" pkg="optoforce_vaga" type="frankaforce_to_files.py" output="screen"/>
+
+    </group>
+
+</launch>
