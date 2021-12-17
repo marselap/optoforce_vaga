@@ -17,4 +17,4 @@ optoforce_node:
 
     speed: 1000
     filter: 0
-    n_sensors: 2
+    n_sensors: 4

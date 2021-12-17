@@ -327,7 +327,7 @@ public:
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "force_filter_node");
+    ros::init(argc, argv, "force_filter_node", ros::init_options::AnonymousName);
     ros::NodeHandle private_node_handle_("~"), n;
     geometry_msgs::WrenchStamped filtered_ft_sensor_msg;
     int rate, masn, mfs, counter;

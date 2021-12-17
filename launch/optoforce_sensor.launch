@@ -14,7 +14,27 @@
     <group>
         <!-- <remap from="force_sensor/force_torque_local_input" to="/optoforce_node/OptoForceWrench" /> -->
         <remap from="force_sensor/force_torque_global_input" to="/optoforce_node/OptoForceWrench_0" />
-        <node name="force_filter_node" pkg="optoforce_vaga" type="force_filter_node" />
+        <remap from="force_sensor/force_torque_output" to="/f0" />
+        <remap from="force_filter/zero_all" to="/f0/zero_all" />
+        <node name="force_filter_node0" pkg="optoforce_vaga" type="force_filter_node" />
     </group>
+
+    <group>
+        <!-- <remap from="force_sensor/force_torque_local_input" to="/optoforce_node/OptoForceWrench" /> -->
+        <remap from="force_sensor/force_torque_global_input" to="/optoforce_node/OptoForceWrench_1" />
+        <remap from="force_sensor/force_torque_output" to="/f1" />
+        <remap from="force_filter/zero_all" to="/f1/zero_all" />
+        <node name="force_filter_node1" pkg="optoforce_vaga" type="force_filter_node" />
+    </group>
+
+
+    <group>
+        <!-- <remap from="force_sensor/force_torque_local_input" to="/optoforce_node/OptoForceWrench" /> -->
+        <remap from="force_sensor/force_torque_global_input" to="/optoforce_node/OptoForceWrench_3" />
+        <remap from="force_sensor/force_torque_output" to="/f2" />
+        <remap from="force_filter/zero_all" to="/f2/zero_all" />
+        <node name="force_filter_node2" pkg="optoforce_vaga" type="force_filter_node" />
+    </group>
+
 
 </launch>
