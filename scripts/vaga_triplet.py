@@ -3,7 +3,7 @@ from __future__ import print_function
 import sys
 import numpy as np
 import rospy
-from std_msgs.msg import String, Bool, Int32
+from std_msgs.msg import String, Bool, Int32, Float32
 import time
 from geometry_msgs.msg import WrenchStamped
 import pickle
@@ -16,20 +16,8 @@ class Vaga:
 
         rate_hz = 100.
         self.rate = rospy.Rate(rate_hz)
-
-        self.opto_sub_0 = rospy.Subscriber("/f0", WrenchStamped, self.callbackForce_0, queue_size = 1)
-        self.opto_sub_1 = rospy.Subscriber("/f1", WrenchStamped, self.callbackForce_1, queue_size = 1)
-        self.opto_sub_2 = rospy.Subscriber("/f2", WrenchStamped, self.callbackForce_2, queue_size = 1)
-
-        self.reset_zero = rospy.Subscriber("/zero_now", Bool, self.zeroCallback)
-        self.reset_weight = rospy.Subscriber("/weight_now", Bool, self.weightCallback)
-
-        self.win_size = rospy.Subscriber("/window_size", Int32, self.winSizeCallback)
-
-        self.pub = rospy.Publisher("/vaga_puna", Bool, queue_size = 1)
-
+        
         self.win_size = 5
-
         self.zero = 0.
         self.weight = 0.5
         self.threshold = 0.1
@@ -43,6 +31,23 @@ class Vaga:
 
         self.zero_data = []
         self.weight_data = []
+
+        self.opto_sub_0 = rospy.Subscriber("/f0", WrenchStamped, self.callbackForce_0, queue_size = 1)
+        self.opto_sub_1 = rospy.Subscriber("/f1", WrenchStamped, self.callbackForce_1, queue_size = 1)
+        self.opto_sub_2 = rospy.Subscriber("/f2", WrenchStamped, self.callbackForce_2, queue_size = 1)
+
+        self.reset_zero = rospy.Subscriber("/zero_now", Bool, self.zeroCallback)
+
+        #set weight by measuring
+        self.reset_weight = rospy.Subscriber("/weight_now", Bool, self.weightCallback)
+
+        self.win_size = rospy.Subscriber("/window_size", Int32, self.winSizeCallback)
+
+        self.pub = rospy.Publisher("/vaga_puna", Bool, queue_size = 1)
+
+        #set weight manually
+        self.cookieweight = rospy.Subscriber("/cookie_weight", Float32, self.cookieCallback)
+
 
 
     def callbackForce_0(self, data):
@@ -69,7 +74,9 @@ class Vaga:
 
     def weightCallback(self, data):
         self.weight_data = [self.data[keys][-1] for keys in self.data.keys()]
-        # self.weight_data = self.data[-1]
+
+    def cookieCallback(self, data):
+        self.weight = data.data
 
     def winSizeCallback(self, data):
         print(data.data)
